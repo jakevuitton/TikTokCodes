@@ -1,0 +1,136 @@
+    <div class="button-container">
+        <!-- Botón de "Sí" -->
+        <button type="button" id="btn-si" onclick="enviarRespuestaSi()">Sí</button>
+        <!-- Botón de "No" con movimiento -->
+        <button type="button" id="btn-no" onmouseover="aparecerEnNuevoLugar()" onclick="cambiarMensaje()">No</button>
+    </div>
+</form>
+
+<!-- Script de JavaScript -->
+<script>
+    // Mensajes para el botón "No"
+    var mensajes = [
+        "Casi...",
+        "¿Por qué me rechazas?",
+        "¡Que pendeja!",
+        "Burra",
+        "¿Todavía no puedes?",
+    ];
+
+    // Mensajes para el botón "No" en un orden aleatorio
+    var mensajesRepetidos = mensajes.slice();
+    var indiceMensaje = 0;
+
+    // Función para generar nuevos dots en el fondo
+    function generarNuevosPuntos(cantidad) {
+        var fallingDots = document.querySelector('.falling-dots');
+        for (var i = 0; i < cantidad; i++) {
+            var dot = document.createElement('div');
+            dot.className = 'dot';
+            dot.style.left = Math.random() * 100 + 'vw';
+            dot.style.animationDuration = (Math.random() * 2 + 1) + 's';
+            dot.style.background = randomColor();
+            fallingDots.appendChild(dot);
+        }
+    }
+
+    // Generar nuevos dots cada 1200 milisegundos (1.2 segundos)
+    setInterval(function () {
+        generarNuevosPuntos(2);
+    }, 1200);
+
+    // Función para abrir una nueva ventana al hacer clic en "Sí"
+    function enviarRespuestaSi() {
+        var nuevaVentana = window.open('', '_blank');
+        nuevaVentana.document.write(`
+            <!DOCTYPE html>
+            <html lang="es">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>A huevo mi amor, gracias</title>
+                <!-- Estilos para la nueva ventana -->
+                <style>
+                    body {
+                        font-family: 'Comic Sans MS', cursive, sans-serif;
+                        text-align: center;
+                        margin: 0;
+                        background-color: #40E0D0;
+                        color: #000080;
+                    }
+
+                    h1 {
+                        font-size: 3em;
+                        margin: 20vh 0 10vh;
+                        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                    }
+
+                    .heart {
+                        color: #FF0000;
+                        font-size: 3em;
+                        display: inline-block;
+                        animation: beat 1s infinite alternate;
+                    }
+
+                    @keyframes beat {
+                        to {
+                            transform: scale(1.1);
+                        }
+                    }
+                </style>
+            </head>
+            <body>
+                <h1><span class="heart">❤</span> A huevo mi amor, gracias <span class="heart">❤</span></h1>
+            </body>
+            </html>
+        `);
+        nuevaVentana.document.close();
+    }
+
+    // Mover el botón "No" a un nuevo lugar
+    function aparecerEnNuevoLugar() {
+        var botonNo = document.getElementById('btn-no');
+        var ventanaAncho = window.innerWidth - botonNo.clientWidth;
+        var ventanaAlto = window.innerHeight - botonNo.clientHeight;
+
+        var nuevoPosX = Math.floor(Math.random() * ventanaAncho);
+        var nuevoPosY = Math.floor(Math.random() * ventanaAlto);
+
+        botonNo.style.position = 'absolute';
+        botonNo.style.left = nuevoPosX + 'px';
+        botonNo.style.top = nuevoPosY + 'px';
+
+        cambiarMensaje();
+    }
+
+    // Función para cambiar el mensaje del botón "No"
+    function cambiarMensaje() {
+        var botonNo = document.getElementById('btn-no');
+
+        if (indiceMensaje < mensajes.length) {
+            botonNo.innerText = mensajes[indiceMensaje];
+            indiceMensaje++;
+        } else {
+            // Si se han mostrado todos los mensajes
+            indiceMensaje = 0;
+            // Ordenar aleatoriamente los mensajes y asignarlos de nuevo
+            mensajesRepetidos.sort(function () {
+                return 0.5 - Math.random();
+            });
+            mensajes = mensajesRepetidos.slice();
+        }
+    }
+
+    // Función para generar un color aleatorio
+    function randomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+</script>
+
+</body>
+</html>
