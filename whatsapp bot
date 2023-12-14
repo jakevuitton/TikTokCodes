@@ -1,0 +1,22 @@
+# pyautogui nos ayudara para automatizar tareas
+import pyautogui
+# aqui el modulo webbrowser hara que podamos abrir la pestaña en nuestro navegador
+import webbrowser
+# nos permitira importan la funcion sleep
+from time import ((sleep))
+
+# pon el link del numero de whatsapp
+webbrowser.open_new_tab('https://web.whatsapp.com/send?phone=+5255XXXXXXX')
+
+# aqui vamos a esperar 40 segundos para que cargue la pagina
+sleep(30)
+
+# se abrira el archivo .txt y cada linea sera un mensaje
+with open('texto.txt', 'r') as file:
+    for line in file:
+        pyautogui.typewrite(line)
+        pyautogui.press('enter')
+
+// RECUERDA INSTALAR PYAUTOGUI PARA QUE FUNCIONE EL CODIDO
+// YO USO PYCHARM Y LO HICE DESDE LA CONSOLA DEL PROGRAMA
+# el archivo .txt lo creo igual dentro de mi IDE
