@@ -1,5 +1,5 @@
 # Codes
 
-Some codes that I will be improving and that I will subsequently be expanding to enhance my work in both web development and backend
+These are some codes that I uploaded to my TikTok; I will be improving them and later increasing the quantity to expand my work in both web development and backend.
 
 --Jacob
